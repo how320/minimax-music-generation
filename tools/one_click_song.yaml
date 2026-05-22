@@ -1,0 +1,158 @@
+description:
+  human:
+    en_US: Generate a complete song in one step — automatically generates lyrics from your
+      description, then creates the music.
+    zh_Hans: 一键生成完整歌曲 — 自动根据描述生成歌词，然后创作音乐。
+  llm: A shortcut tool that generates a complete song in one step. Provide a theme or
+    description, and it will automatically generate lyrics and then create the music.
+    Combines lyrics generation and music generation into a single call.
+extra:
+  python:
+    source: tools/one_click_song.py
+identity:
+  author: langgenius
+  icon: icon.svg
+  label:
+    en_US: One-Click Song
+    zh_Hans: 一键生成歌曲
+  name: one_click_song
+parameters:
+- form: llm
+  human_description:
+    en_US: Description of the song theme and style, e.g. "a cheerful pop song about summer beach"
+      (max 2000 chars).
+    zh_Hans: 歌曲主题和风格描述，如"一首关于夏日海边的轻快流行歌曲"（最长 2000 字符）。
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  llm_description: The song theme and style description for one-click song generation.
+  name: prompt
+  required: true
+  type: string
+- form: llm
+  human_description:
+    en_US: Optional song title. If provided, the generated song will use this title.
+    zh_Hans: 可选歌曲标题。传入后生成的歌曲将使用该标题。
+  label:
+    en_US: Title
+    zh_Hans: 歌曲标题
+  llm_description: Optional song title.
+  name: title
+  required: false
+  type: string
+- default: music-2.6
+  form: form
+  human_description:
+    en_US: Model to use for music generation.
+    zh_Hans: 音乐生成使用的模型。
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  name: model
+  options:
+  - label:
+      en_US: music-2.6 (Recommended)
+      zh_Hans: music-2.6（推荐）
+    value: music-2.6
+  - label:
+      en_US: music-2.6-free
+      zh_Hans: music-2.6-free
+    value: music-2.6-free
+  required: false
+  type: select
+- default: hex
+  form: form
+  human_description:
+    en_US: Audio output format. hex returns audio blob, url returns download link.
+    zh_Hans: 音频输出格式。hex 返回音频文件，url 返回下载链接。
+  label:
+    en_US: Output Format
+    zh_Hans: 输出格式
+  name: output_format
+  options:
+  - label:
+      en_US: Audio Blob (hex)
+      zh_Hans: 音频文件 (hex)
+    value: hex
+  - label:
+      en_US: Download URL
+    value: url
+  required: false
+  type: select
+- default: false
+  form: form
+  human_description:
+    en_US: Generate instrumental music only (no vocals).
+    zh_Hans: 仅生成纯音乐（无人声）。
+  label:
+    en_US: Instrumental Only
+    zh_Hans: 纯音乐
+  name: is_instrumental
+  required: false
+  type: boolean
+- form: form
+  human_description:
+    en_US: "Audio sample rate. Options: 16000, 24000, 32000, 44100."
+    zh_Hans: "音频采样率。可选：16000, 24000, 32000, 44100。"
+  label:
+    en_US: Sample Rate
+    zh_Hans: 采样率
+  name: sample_rate
+  options:
+  - label:
+      en_US: 44100 Hz (Recommended)
+    value: "44100"
+  - label:
+      en_US: 32000 Hz
+    value: "32000"
+  - label:
+      en_US: 24000 Hz
+    value: "24000"
+  - label:
+      en_US: 16000 Hz
+    value: "16000"
+  required: false
+  type: select
+- form: form
+  human_description:
+    en_US: "Audio bitrate. Options: 32000, 64000, 128000, 256000."
+    zh_Hans: "音频比特率。可选：32000, 64000, 128000, 256000。"
+  label:
+    en_US: Bitrate
+    zh_Hans: 比特率
+  name: bitrate
+  options:
+  - label:
+      en_US: 256000 (High)
+    value: "256000"
+  - label:
+      en_US: 128000 (Medium)
+    value: "128000"
+  - label:
+      en_US: 64000 (Low)
+    value: "64000"
+  - label:
+      en_US: 32000 (Very Low)
+    value: "32000"
+  required: false
+  type: select
+- form: form
+  human_description:
+    en_US: "Audio encoding format. Options: mp3, wav, pcm."
+    zh_Hans: "音频编码格式。可选：mp3, wav, pcm。"
+  label:
+    en_US: Audio Format
+    zh_Hans: 音频格式
+  name: audio_format
+  options:
+  - label:
+      en_US: MP3
+    value: mp3
+  - label:
+      en_US: WAV
+    value: wav
+  - label:
+      en_US: PCM
+    value: pcm
+  required: false
+  type: select

@@ -1,0 +1,209 @@
+description:
+  human:
+    en_US: Generate music from lyrics and description using MiniMax music-2.6 or music-cover models.
+    zh_Hans: 使用 MiniMax music-2.6 或 music-cover 模型根据歌词和描述生成音乐。
+  llm: A tool that generates music from lyrics and/or text descriptions. Supports text-to-music
+    (music-2.6) and cover generation (music-cover). Can also generate instrumental music
+    or auto-generate lyrics from a prompt.
+extra:
+  python:
+    source: tools/music_generation.py
+identity:
+  author: langgenius
+  icon: icon.svg
+  label:
+    en_US: Music Generation
+    zh_Hans: 音乐生成
+  name: music_generation
+parameters:
+- default: music-2.6
+  form: form
+  human_description:
+    en_US: Model to use. music-2.6 for text-to-music, music-cover for cover songs, *-free for free tier.
+    zh_Hans: 使用的模型。music-2.6 用于文本生成音乐，music-cover 用于翻唱，*-free 为免费版。
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  name: model
+  options:
+  - label:
+      en_US: music-2.6 (Recommended)
+      zh_Hans: music-2.6（推荐）
+    value: music-2.6
+  - label:
+      en_US: music-2.6-free
+      zh_Hans: music-2.6-free
+    value: music-2.6-free
+  - label:
+      en_US: music-cover
+      zh_Hans: music-cover
+    value: music-cover
+  - label:
+      en_US: music-cover-free
+      zh_Hans: music-cover-free
+    value: music-cover-free
+  required: true
+  type: select
+- form: llm
+  human_description:
+    en_US: Music style description, e.g. "pop, sad, rainy night" (max 2000 chars).
+    zh_Hans: 音乐风格描述，如"流行, 难过, 下雨的晚上"（最长 2000 字符）。
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  llm_description: Description of the music style, mood, and scene.
+  name: prompt
+  required: false
+  type: string
+- form: llm
+  human_description:
+    en_US: Song lyrics with structure tags like [Verse], [Chorus] (max 3500 chars).
+    zh_Hans: 带结构标签的歌词，如 [Verse]、[Chorus]（最长 3500 字符）。
+  label:
+    en_US: Lyrics
+    zh_Hans: 歌词
+  llm_description: Song lyrics with structure tags (e.g. [Verse], [Chorus], [Bridge]).
+  name: lyrics
+  required: false
+  type: string
+- default: hex
+  form: form
+  human_description:
+    en_US: Audio output format. hex returns audio blob directly, url returns a download link (valid 24h).
+    zh_Hans: 音频输出格式。hex 直接返回音频，url 返回下载链接（24小时有效）。
+  label:
+    en_US: Output Format
+    zh_Hans: 输出格式
+  name: output_format
+  options:
+  - label:
+      en_US: Audio Blob (hex)
+      zh_Hans: 音频文件 (hex)
+    value: hex
+  - label:
+      en_US: Download URL
+      zh_Hans: 下载链接 (url)
+    value: url
+  required: false
+  type: select
+- default: false
+  form: form
+  human_description:
+    en_US: Generate instrumental music only (no vocals). Only for music-2.6 models.
+    zh_Hans: 仅生成纯音乐（无人声）。仅 music-2.6 模型支持。
+  label:
+    en_US: Instrumental Only
+    zh_Hans: 纯音乐
+  name: is_instrumental
+  required: false
+  type: boolean
+- default: false
+  form: form
+  human_description:
+    en_US: Auto-generate lyrics from prompt when lyrics is empty. Only for music-2.6 models.
+    zh_Hans: 当歌词为空时，根据提示词自动生成歌词。仅 music-2.6 模型支持。
+  label:
+    en_US: Lyrics Optimizer
+    zh_Hans: 自动生成歌词
+  name: lyrics_optimizer
+  required: false
+  type: boolean
+- form: llm
+  human_description:
+    en_US: Cover feature ID from Music Cover Preprocess tool. For two-step cover workflow.
+    zh_Hans: 翻唱前处理工具返回的特征 ID。用于两步翻唱流程。
+  label:
+    en_US: Cover Feature ID
+    zh_Hans: 翻唱特征 ID
+  llm_description: The cover_feature_id from the Music Cover Preprocess tool. Use this for two-step cover generation.
+  name: cover_feature_id
+  required: false
+  type: string
+- form: llm
+  human_description:
+    en_US: Reference audio URL for cover models (6s-6min, max 50MB). Mutually exclusive with cover_feature_id.
+    zh_Hans: 参考音频 URL，用于翻唱模型（6秒-6分钟，最大50MB）。与 cover_feature_id 互斥。
+  label:
+    en_US: Reference Audio URL
+    zh_Hans: 参考音频 URL
+  llm_description: URL of reference audio for cover generation.
+  name: audio_url
+  required: false
+  type: string
+- form: form
+  human_description:
+    en_US: Upload reference audio file for cover models. Mutually exclusive with cover_feature_id and audio_url.
+    zh_Hans: 上传参考音频文件，用于翻唱模型。与 cover_feature_id 和 audio_url 互斥。
+  label:
+    en_US: Reference Audio File
+    zh_Hans: 参考音频文件
+  llm_description: Upload a reference audio file for cover generation.
+  name: audio_file
+  required: false
+  type: file
+- form: form
+  human_description:
+    en_US: "Audio sample rate. Options: 16000, 24000, 32000, 44100."
+    zh_Hans: "音频采样率。可选：16000, 24000, 32000, 44100。"
+  label:
+    en_US: Sample Rate
+    zh_Hans: 采样率
+  name: sample_rate
+  options:
+  - label:
+      en_US: 44100 Hz (Recommended)
+    value: "44100"
+  - label:
+      en_US: 32000 Hz
+    value: "32000"
+  - label:
+      en_US: 24000 Hz
+    value: "24000"
+  - label:
+      en_US: 16000 Hz
+    value: "16000"
+  required: false
+  type: select
+- form: form
+  human_description:
+    en_US: "Audio bitrate. Options: 32000, 64000, 128000, 256000."
+    zh_Hans: "音频比特率。可选：32000, 64000, 128000, 256000。"
+  label:
+    en_US: Bitrate
+    zh_Hans: 比特率
+  name: bitrate
+  options:
+  - label:
+      en_US: 256000 (High)
+    value: "256000"
+  - label:
+      en_US: 128000 (Medium)
+    value: "128000"
+  - label:
+      en_US: 64000 (Low)
+    value: "64000"
+  - label:
+      en_US: 32000 (Very Low)
+    value: "32000"
+  required: false
+  type: select
+- form: form
+  human_description:
+    en_US: "Audio encoding format. Options: mp3, wav, pcm."
+    zh_Hans: "音频编码格式。可选：mp3, wav, pcm。"
+  label:
+    en_US: Audio Format
+    zh_Hans: 音频格式
+  name: audio_format
+  options:
+  - label:
+      en_US: MP3
+    value: mp3
+  - label:
+      en_US: WAV
+    value: wav
+  - label:
+      en_US: PCM
+    value: pcm
+  required: false
+  type: select

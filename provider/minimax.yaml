@@ -1,0 +1,42 @@
+credentials_for_provider:
+  minimax_api_key:
+    label:
+      en_US: API Key
+      zh_Hans: API Key
+    placeholder:
+      en_US: Enter your MiniMax API Key
+      zh_Hans: 请输入您的 MiniMax API Key
+    required: true
+    type: secret-input
+    url: https://platform.minimaxi.com/user-center/basic-information/interface-key
+  api_base:
+    default: https://api.minimaxi.com
+    label:
+      en_US: API Base URL
+      zh_Hans: API Base URL
+    placeholder:
+      en_US: Enter your API Base URL
+      zh_Hans: 请输入 API Base URL
+    required: false
+    type: text-input
+extra:
+  python:
+    source: provider/minimax.py
+identity:
+    author: how320
+  description:
+    en_US: MiniMax music generation plugin providing lyrics generation, music cover preprocessing,
+      and music generation using music-2.6 and music-cover models.
+    zh_Hans: MiniMax 音乐生成插件，使用 music-2.6 和 music-cover 模型提供歌词生成、翻唱前处理和音乐生成功能。
+  icon: icon.svg
+  label:
+    en_US: MiniMax Music
+    zh_Hans: MiniMax 音乐生成
+  name: minimax_music
+  tags:
+  - entertainment
+tools:
+- tools/lyrics_generation.yaml
+- tools/music_cover_preprocess.yaml
+- tools/music_generation.yaml
+- tools/one_click_song.yaml

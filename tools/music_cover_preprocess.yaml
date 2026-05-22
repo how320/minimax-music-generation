@@ -1,0 +1,40 @@
+description:
+  human:
+    en_US: Preprocess a reference audio for cover generation. Extracts audio features and lyrics for two-step cover workflow.
+    zh_Hans: 对参考音频进行翻唱前处理，提取音频特征和歌词，用于两步翻唱流程。
+  llm: A tool that preprocesses a reference audio file for music cover generation. Extracts
+    audio features (cover_feature_id), formatted lyrics, and song structure. Use this
+    before the Music Generation tool when doing cover songs.
+extra:
+  python:
+    source: tools/music_cover_preprocess.py
+identity:
+  author: langgenius
+  icon: icon.svg
+  label:
+    en_US: Music Cover Preprocess
+    zh_Hans: 翻唱前处理
+  name: music_cover_preprocess
+parameters:
+- form: llm
+  human_description:
+    en_US: URL of the reference audio file (6s-6min, max 50MB, mp3/wav/flac). Use either audio_url or audio_file, not both.
+    zh_Hans: 参考音频的 URL 地址（6秒-6分钟，最大50MB，mp3/wav/flac）。与音频文件二选一。
+  label:
+    en_US: Audio URL
+    zh_Hans: 音频 URL
+  llm_description: URL of the reference audio for cover preprocessing.
+  name: audio_url
+  required: false
+  type: string
+- form: form
+  human_description:
+    en_US: Upload a reference audio file (6s-6min, max 50MB, mp3/wav/flac). Use either audio_file or audio_url, not both.
+    zh_Hans: 上传参考音频文件（6秒-6分钟，最大50MB，mp3/wav/flac）。与音频 URL 二选一。
+  label:
+    en_US: Audio File
+    zh_Hans: 音频文件
+  llm_description: Upload a reference audio file for cover preprocessing.
+  name: audio_file
+  required: false
+  type: file

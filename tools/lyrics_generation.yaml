@@ -1,0 +1,70 @@
+description:
+  human:
+    en_US: Generate or edit song lyrics using MiniMax lyrics generation API.
+    zh_Hans: 使用 MiniMax 歌词生成 API 生成或编辑歌词。
+  llm: A tool that generates or edits song lyrics. Use 'write_full_song' mode to create
+    a complete song from a theme, or 'edit' mode to continue or modify existing lyrics.
+extra:
+  python:
+    source: tools/lyrics_generation.py
+identity:
+  author: langgenius
+  icon: icon.svg
+  label:
+    en_US: Lyrics Generation
+    zh_Hans: 歌词生成
+  name: lyrics_generation
+parameters:
+- default: write_full_song
+  form: form
+  human_description:
+    en_US: "Generation mode: write_full_song creates a complete song, edit modifies or continues existing lyrics."
+    zh_Hans: "生成模式：write_full_song 创作完整歌曲，edit 编辑或续写已有歌词。"
+  label:
+    en_US: Mode
+    zh_Hans: 模式
+  name: mode
+  options:
+  - label:
+      en_US: Write Full Song
+      zh_Hans: 创作完整歌曲
+    value: write_full_song
+  - label:
+      en_US: Edit / Continue Lyrics
+      zh_Hans: 编辑/续写歌词
+    value: edit
+  required: true
+  type: select
+- form: llm
+  human_description:
+    en_US: Description of the song theme, style, or edit direction (max 2000 characters). Leave empty for random generation.
+    zh_Hans: 歌曲主题、风格或编辑方向的描述（最长 2000 字符）。留空则随机生成。
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  llm_description: The song theme or style description, e.g. "a cheerful love song about summer beach".
+  name: prompt
+  required: false
+  type: string
+- form: llm
+  human_description:
+    en_US: Existing lyrics to edit or continue. Only used in 'edit' mode (max 3500 characters).
+    zh_Hans: 需要编辑或续写的已有歌词。仅在 edit 模式下有效（最长 3500 字符）。
+  label:
+    en_US: Existing Lyrics
+    zh_Hans: 已有歌词
+  llm_description: Existing lyrics content for edit mode. Provide the lyrics you want to continue or modify.
+  name: lyrics
+  required: false
+  type: string
+- form: llm
+  human_description:
+    en_US: Song title. If provided, the output will keep this title unchanged.
+    zh_Hans: 歌曲标题。传入后输出将保持该标题不变。
+  label:
+    en_US: Title
+    zh_Hans: 歌曲标题
+  llm_description: Optional song title. If provided, the generated song will use this title.
+  name: title
+  required: false
+  type: string
