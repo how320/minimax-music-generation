@@ -23,7 +23,7 @@ extra:
   python:
     source: provider/minimax.py
 identity:
-    author: how320
+  author: how320
   description:
     en_US: MiniMax music generation plugin providing lyrics generation, music cover preprocessing,
       and music generation using music-2.6 and music-cover models.
